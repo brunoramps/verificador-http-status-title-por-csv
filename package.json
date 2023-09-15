@@ -1,0 +1,20 @@
+{
+  "name": "http-status-code-checker",
+  "version": "1.0.0",
+  "description": "ferramenta que acessa uma lista de urls em um arquivo csv e retorna o http status code de cada uma delas",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bruno Ramos",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.12",
+    "csv-parser": "^3.0.0",
+    "fast-csv": "^4.3.6",
+    "puppeteer": "^21.2.1",
+    "request-promise": "^0.0.1"
+  }
+}
