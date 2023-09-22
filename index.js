@@ -1,4 +1,4 @@
-const lerCsv = require('/http-status-code-checker/src/csv/lerCsv');
+const lerCsv = require('./src/csv/lerCsv');
 const { salvarResultado } = require('./src/csv/gravarCsv');
 const { scrapper } = require('./src/scrapper/scrapper');
 
