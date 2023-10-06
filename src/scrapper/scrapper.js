@@ -2,7 +2,8 @@ const puppeteer = require('puppeteer');
 const axios = require('axios');
 async function scrapper(urls, userAgent){
 
-    const results = [];
+  const results = [];
+  let contador = 1;
 
   // Inicializando o Puppeteer
   const browser = await puppeteer.launch({
@@ -16,7 +17,7 @@ async function scrapper(urls, userAgent){
       // Acessando cada URL e coletando as informações
       for (const url of urls) {
         try {
-          console.log(`Verificando URL: ${url}`);
+          console.log(`Verificando [${contador} de ${urls.length}] - [${url}]`);
           const response = await page.goto(url, { waitUntil: 'networkidle0' });
           const statusCode = response.status();
 
@@ -35,16 +36,20 @@ async function scrapper(urls, userAgent){
             titlePage: pageInfo.title || 'N/A',
           };
           results.push(result);
-          console.log(`(OK)Resultado para URL: ${url}`, result);
+          console.log(``, result);
         } catch (error) {
           console.error(`(ER)Erro ao acessar a URL ${url}: ${error}`);
-          results.push({
+          /*results.push({
             urlOrigem: url,
             httpStatusCode: 'N/A',
             urlRedirect: 'N/A',
             titlePage: 'N/A',
           });
+          */
+         urls.push(url);
+         console.log(`${url} adicionada novamente na fila para renderização!`)
         }
+        contador++;
       }
 
       // Fechando o navegador Puppeteer
