@@ -18,7 +18,7 @@ async function scrapper(urls, userAgent){
       for (const url of urls) {
         try {
           console.log(`Verificando [${contador} de ${urls.length}] - [${url}]`);
-          const response = await page.goto(url, { waitUntil: 'networkidle0' });
+          const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
           const statusCode = response.status();
 
 
@@ -37,17 +37,21 @@ async function scrapper(urls, userAgent){
           };
           results.push(result);
           console.log(``, result);
-        } catch (error) {
-          console.error(`(ER)Erro ao acessar a URL ${url}: ${error}`);
-          /*results.push({
-            urlOrigem: url,
-            httpStatusCode: 'N/A',
-            urlRedirect: 'N/A',
-            titlePage: 'N/A',
-          });
-          */
-         urls.push(url);
-         console.log(`${url} adicionada novamente na fila para renderização!`)
+        } catch (e) {
+          console.log(`(ER)Erro ao acessar a URL ${url}: ${e}`);
+          
+          const msgError = e.toString();
+          if(msgError.includes("net::ERR_TOO_MANY_REDIRECTS")){
+            results.push({
+              urlOrigem: url,
+              httpStatusCode: await getStatus(url),
+              urlRedirect: url,
+              titlePage: msgError.split(" ")[1],
+            });            
+          }else{
+            urls.push(url);
+            console.log(`${url} adicionada novamente na fila para renderização!`)
+          }
         }
         contador++;
       }

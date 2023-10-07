@@ -3,7 +3,7 @@ const { salvarResultado } = require('./src/csv/gravarCsv');
 const { scrapper } = require('./src/scrapper/scrapper');
 
 async function main() {
-  const userAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'; // Definindo o User-Agent personalizado
+  const userAgent = 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'; // Definindo o User-Agent personalizado
 
   // Lendo o arquivo CSV e coletando as URLs
   const urls = await lerCsv.pegarListaDeUrls();
