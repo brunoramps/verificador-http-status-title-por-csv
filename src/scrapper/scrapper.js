@@ -34,6 +34,7 @@ async function scrapper(urls, userAgent){
             httpStatusCode: pageInfo.locationHref.startsWith(url) ? statusCode : await getStatus(url),
             urlRedirect: pageInfo.locationHref.startsWith(url) ? 'N/A' : pageInfo.locationHref,
             titlePage: pageInfo.title || 'N/A',
+            destinationUrlStatus: pageInfo.locationHref ? await getStatus(pageInfo.locationHref) : "N/A"
           };
           results.push(result);
           console.log(``, result);
@@ -47,6 +48,7 @@ async function scrapper(urls, userAgent){
               httpStatusCode: await getStatus(url),
               urlRedirect: url,
               titlePage: msgError.split(" ")[1],
+              destinationUrlStatus: "N/A"
             });            
           }else{
             urls.push(url);
