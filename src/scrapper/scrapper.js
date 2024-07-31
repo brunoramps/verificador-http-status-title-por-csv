@@ -18,7 +18,8 @@ async function scrapper(urls, userAgent){
       for (const url of urls) {
         try {
           console.log(`Verificando [${contador} de ${urls.length}] - [${url}]`);
-          const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
+//          const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
+          const response = await page.goto(url, { waitUntil: 'networkidle2' });
           const statusCode = response.status();
 
 
