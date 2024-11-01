@@ -14,12 +14,13 @@ async function scrapperOne(urls, userAgent) {
   // Configurando o User-Agent
   await page.setUserAgent(userAgent);
 
-  // Acessando cada URL e coletando as informações
-  for (const url of urls) {
-    try {
-      console.log(`Verificando [${contador} de ${urls.length}] - [${url}]`);
-      const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
-      const statusCode = response.status();
+      // Acessando cada URL e coletando as informações
+      for (const url of urls) {
+        try {
+          console.log(`Verificando [${contador} de ${urls.length}] - [${url}]`);
+//          const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
+          const response = await page.goto(url, { waitUntil: 'networkidle2' });
+          const statusCode = response.status();
 
 
       const pageInfo = await page.evaluate(() => {
@@ -73,7 +74,7 @@ async function scrapperOne(urls, userAgent) {
       });
       return response.status;
     } catch (err) {
-      //Se der erro, a página retorna um html em err.response.data, então não há necessidade de colocar a URL na fila de novo          
+      //Se der erro, a página retorna um html em err.response.data, então não há necessidade de colocar a URL na fila de novo
       return err.response.status
     }
   }
@@ -122,7 +123,7 @@ async function scrapper(urls, userAgent) {
       });
       return response.status;
     } catch (err) {
-      //Se der erro, a página retorna um html em err.response.data, então não há necessidade de colocar a URL na fila de novo          
+      //Se der erro, a página retorna um html em err.response.data, então não há necessidade de colocar a URL na fila de novo
       return err.response.status
     }
   }
